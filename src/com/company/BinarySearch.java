@@ -10,37 +10,41 @@ public class BinarySearch extends Main {
     //If its not equal to middle index check the bigger values and vice versa.
     // Returns index of x if it is present in arr[],
     // else return -1
-    int binarySearch(int arr[], int x)
+    public int binarySearch(int nums[], int target)
     {
-        int l = 0, r = arr.length - 1;
-        while (l <= r) {
-            int m = l + (r - l) / 2;
+        // Set the left and right boundaries
+        int left = 0, right = nums.length - 1;
 
-            // Check if x is present at mid
-            if (arr[m] == x)
-                return m;
+        // Under this condition
+        while (left <= right) {
+            // Get the middle index and the middle value.
+            int mid = left + (right - left) / 2;
 
-            // If x greater, ignore left half
-            if (arr[m] < x)
-                l = m + 1;
-
-                // If x is smaller, ignore right half
-            else
-                r = m - 1;
+            // Case 1, return the middle index.
+            if (nums[mid] == target) {
+                return mid;
+            }
+            // Case 2, discard the smaller half.
+            else if (nums[mid] < target) {
+                left = mid + 1;
+            }
+            // Case 3, discard the larger half.
+            else {
+                right = mid - 1;
+            }
         }
 
-        // if we reach here, then element was
-        // not present
+        // If we finish the search without finding target, return -1.
         return -1;
     }
 
     public static void BinarySearchTestDrive(){
         //Driver to Test the Binary Search:
         BinarySearch ob = new BinarySearch();
-        int arr[] = { 2, 3, 4, 10, 40 };
-        int n = arr.length;
+        int nums[] = { 2, 3, 4, 10, 40 };
+        int n = nums.length;
         int x = 10;
-        int result = ob.binarySearch(arr, x);
+        int result = ob.binarySearch(nums, x);
         if (result == -1)
             System.out.println("Element not present");
         else
